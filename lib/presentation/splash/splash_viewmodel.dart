@@ -5,7 +5,7 @@ import '../../core/navigation/app_router.dart';
 class SplashViewModel extends BaseViewModel {
   /// Waits 3 seconds then navigates to onboarding. Call from View's initState.
   Future<void> initialize() async {
-    await Future<void>.delayed(const Duration(seconds: 100));
+    await Future<void>.delayed(const Duration(seconds: 10));
     await AppRouter.pushReplacementNamed(AppRoutes.onboarding);
   }
 }
