@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'core/navigation/app_router.dart';
+import 'core/theme/app_theme.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -9,11 +12,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(child: Text("Ishara App")),
-      ),
+      navigatorKey: AppRouter.navigatorKey,
+      theme: AppTheme.light,
+      initialRoute: AppRoutes.splash,
+      onGenerateRoute: AppRouter.onGenerateRoute,
     );
   }
 }
