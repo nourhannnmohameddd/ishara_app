@@ -18,6 +18,6 @@ class LoginViewModel extends BaseViewModel {
     setBusy(true);
     // TODO: call auth repository, then navigate via AppRouter
     setBusy(false);
-    AppRouter.pushReplacementNamed<void>(AppRoutes.onboarding);
+    AppRouter.pushReplacementNamed(AppRoutes.onboarding);
   }
 }

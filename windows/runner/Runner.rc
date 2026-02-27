@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "isharaa_pp" "\0"
+            VALUE "FileDescription", "ishara_app" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "isharaa_pp" "\0"
+            VALUE "InternalName", "ishara_app" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2026 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "isharaa_pp.exe" "\0"
-            VALUE "ProductName", "isharaa_pp" "\0"
+            VALUE "OriginalFilename", "ishara_app.exe" "\0"
+            VALUE "ProductName", "ishara_app" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

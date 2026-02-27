@@ -1,6 +1,6 @@
 {
-    "name": "isharaa_pp",
-    "short_name": "isharaa_pp",
+    "name": "ishara_app",
+    "short_name": "ishara_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -3,7 +3,9 @@ import '../../core/navigation/app_router.dart';
 
 /// Splash logic only. Startup and navigation here; never in View.
 class SplashViewModel extends BaseViewModel {
-  void onReady() {
-    // TODO: check auth/prefs, then navigate via AppRouter (e.g. AppRouter.pushReplacementNamed(AppRoutes.login));
+  /// Waits 3 seconds then navigates to onboarding. Call from View's initState.
+  Future<void> initialize() async {
+    await Future<void>.delayed(const Duration(seconds: 100));
+    await AppRouter.pushReplacementNamed(AppRoutes.onboarding);
   }
 }

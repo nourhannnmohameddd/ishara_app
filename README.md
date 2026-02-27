@@ -1,4 +1,4 @@
-# isharaa_pp
+# ishara_app
 
 A new Flutter project.
 

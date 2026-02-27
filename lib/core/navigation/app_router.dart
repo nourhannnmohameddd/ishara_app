@@ -25,20 +25,20 @@ class AppRouter {
 
   static NavigatorState? get _navigator => navigatorKey.currentState;
 
-  static Future<T?> pushNamed<T>(String routeName, {Object? arguments}) {
-    return _navigator?.pushNamed<T>(routeName, arguments: arguments) ?? Future.value();
+  static Future<void> pushNamed(String routeName, {Object? arguments}) async {
+    await (_navigator?.pushNamed(routeName, arguments: arguments) ?? Future.value());
   }
 
-  static Future<T?> pushReplacementNamed<T, TO>(String routeName, {Object? arguments, TO? result}) {
-    return _navigator?.pushReplacementNamed<T, TO>(routeName, arguments: arguments, result: result) ?? Future.value();
+  static Future<void> pushReplacementNamed(String routeName, {Object? arguments, Object? result}) async {
+    await (_navigator?.pushReplacementNamed(routeName, arguments: arguments, result: result) ?? Future.value());
   }
 
-  static void pop<T>([T? result]) {
+  static void pop([Object? result]) {
     _navigator?.pop(result);
   }
 
-  static Future<T?> pushNamedAndRemoveUntil<T>(String routeName, RoutePredicate predicate, {Object? arguments}) {
-    return _navigator?.pushNamedAndRemoveUntil<T>(routeName, predicate, arguments: arguments) ?? Future.value();
+  static Future<void> pushNamedAndRemoveUntil(String routeName, RoutePredicate predicate, {Object? arguments}) async {
+    await (_navigator?.pushNamedAndRemoveUntil(routeName, predicate, arguments: arguments) ?? Future.value());
   }
 
   /// Route generation. Used by MaterialApp.onGenerateRoute only.
