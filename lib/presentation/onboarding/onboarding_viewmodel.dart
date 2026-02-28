@@ -22,7 +22,7 @@ class OnboardingViewModel extends BaseViewModel {
       imagePath: 'assets/images/onboarding2.jpg',
     ),
     OnboardingModel(
-      title: 'Smart,Fast and Inclusive',
+      title: 'Smart, Fast and Inclusive',
       description:
           'Video call, chat and communicate confidently anywhere using automatic ArSL translation and voice output.',
       imagePath: 'assets/images/onboarding3.jpg',
