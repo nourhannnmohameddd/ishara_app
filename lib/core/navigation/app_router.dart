@@ -8,13 +8,15 @@ import '../../presentation/reset_password/reset_password_view.dart';
 import '../../presentation/reset_password/reset_password_viewmodel.dart';
 import '../../presentation/splash/splash_view.dart';
 import '../../presentation/splash/splash_viewmodel.dart';
+import 'route_constants.dart';
 
 /// Route names. Navigation is performed only from ViewModels via [AppRouter].
+/// Paths are defined in [RouteConstants].
 abstract class AppRoutes {
-  static const String splash = '/';
-  static const String onboarding = '/onboarding';
-  static const String login = '/login';
-  static const String resetPassword = '/reset-password';
+  static const String splash = RouteConstants.splash;
+  static const String onboarding = RouteConstants.onboarding;
+  static const String login = RouteConstants.login;
+  static const String resetPassword = RouteConstants.resetPassword;
 }
 
 /// Central navigation. ViewModels use this; Views must not navigate.
@@ -44,13 +46,13 @@ class AppRouter {
   /// Route generation. Used by MaterialApp.onGenerateRoute only.
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case AppRoutes.splash:
+      case RouteConstants.splash:
         return _materialRoute(settings, SplashView(viewModel: SplashViewModel()));
-      case AppRoutes.onboarding:
+      case RouteConstants.onboarding:
         return _materialRoute(settings, OnboardingView(viewModel: OnboardingViewModel()));
-      case AppRoutes.login:
+      case RouteConstants.login:
         return _materialRoute(settings, LoginView(viewModel: LoginViewModel()));
-      case AppRoutes.resetPassword:
+      case RouteConstants.resetPassword:
         return _materialRoute(settings, ResetPasswordView(viewModel: ResetPasswordViewModel()));
       default:
         return null;
