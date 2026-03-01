@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/constants/app_spacing.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text_styles.dart';
+import '../../core/widgets/app_scaffold.dart';
 import '../../shared/widgets/widgets.dart';
 import 'onboarding_viewmodel.dart';
 
@@ -37,64 +38,66 @@ class _OnboardingViewState extends State<OnboardingView> {
     return ListenableBuilder(
       listenable: widget.viewModel,
       builder: (context, _) {
-        return Scaffold(
-          backgroundColor: AppColors.background,
-          body: LayoutBuilder(
-            builder: (context, constraints) {
-              final contentWidth = _isWeb(context)
-                  ? _maxContentWidth
-                  : constraints.maxWidth;
-              final contentHeight = constraints.maxHeight;
-              final imageHeight = contentHeight * _imageHeightFraction;
-              //final cardHeight = contentHeight * _cardHeightFraction;
+        return AppScaffold(
+          useSafeArea: true,
+          bodyPadding: EdgeInsets.zero,
+          body: Container(
+            color: Colors.white,
+            width: double.infinity,
+            height: double.infinity,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final contentWidth = _isWeb(context)
+                    ? _maxContentWidth
+                    : constraints.maxWidth;
+                final contentHeight = constraints.maxHeight;
+                final imageHeight = contentHeight * _imageHeightFraction;
 
-              final stack = Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  // Image first (bottom layer).
-                  Positioned(
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    height: imageHeight,
-                    child: PageView.builder(
-                      controller: widget.viewModel.pageController,
-                      itemCount: OnboardingViewModel.pages.length,
-                      onPageChanged: widget.viewModel.setCurrentIndex,
-                      itemBuilder: (context, index) {
-                        final slide =
-                            OnboardingViewModel.pages[index];
-                        return Image.asset(
-                          slide.imagePath,
-                          fit: BoxFit.cover,
-                          width: contentWidth,
-                          height: imageHeight,
-                        );
-                      },
+                final stack = Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: imageHeight,
+                      child: PageView.builder(
+                        controller: widget.viewModel.pageController,
+                        itemCount: OnboardingViewModel.pages.length,
+                        onPageChanged: widget.viewModel.setCurrentIndex,
+                        itemBuilder: (context, index) {
+                          final slide =
+                              OnboardingViewModel.pages[index];
+                          return Image.asset(
+                            slide.imagePath,
+                            fit: BoxFit.cover,
+                            width: contentWidth,
+                            height: imageHeight,
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                  // BottomCard second so it renders on top of the image.
-                  Positioned(
-                    top: imageHeight - _cardOverlapOffset,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
+                    Positioned(
+                      top: imageHeight - _cardOverlapOffset,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      child: _BottomCard(viewModel: widget.viewModel),
+                    ),
+                  ],
+                );
 
-                    child: _BottomCard(viewModel: widget.viewModel),
-                  ),
-                ],
-              );
+                final content = SizedBox(
+                  width: contentWidth,
+                  height: contentHeight,
+                  child: stack,
+                );
 
-              final content = SizedBox(
-                width: contentWidth,
-                height: contentHeight,
-                child: stack,
-              );
-
-              return _isWeb(context)
-                  ? Center(child: content)
-                  : content;
-            },
+                return _isWeb(context)
+                    ? Center(child: content)
+                    : content;
+              },
+            ),
           ),
         );
       },
