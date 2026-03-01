@@ -141,84 +141,90 @@ class _BottomCard extends StatelessWidget {
         horizontal: _cardPaddingHorizontal,
         vertical: _cardPaddingVertical,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-
-          /// 🔹 TEXT AREA (natural height)
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                slide.title,
-                textAlign: TextAlign.center,
-                style: AppTextStyles.headlineLarge,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: constraints.maxHeight,
               ),
-
-              const SizedBox(height: 16),
-
-              Text(
-                slide.description,
-                textAlign: TextAlign.center,
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                style: AppTextStyles.bodyLarge,
-              ),
-            ],
-          ),
-
-          /// 🔹 Pushes dots + buttons downward responsively
-          const Spacer(),
-
-          /// 🔹 DOTS
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(
-              OnboardingViewModel.pages.length,
-              (index) {
-                final isActive = index == viewModel.currentIndex;
-
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    width:
-                        isActive ? _dotActiveWidth : _dotInactiveSize,
-                    height:
-                        isActive ? _dotActiveHeight : _dotInactiveSize,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        isActive
-                            ? _dotActiveRadius
-                            : _dotInactiveSize / 2,
-                      ),
-                      color: isActive
-                          ? AppColors.primary
-                          : AppColors.inactiveDot,
+              child: IntrinsicHeight(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    /// 🔹 TEXT AREA (natural height)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          slide.title,
+                          textAlign: TextAlign.center,
+                          style: AppTextStyles.headlineLarge,
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          slide.description,
+                          textAlign: TextAlign.center,
+                          style: AppTextStyles.bodyLarge,
+                        ),
+                      ],
                     ),
-                  ),
-                );
-              },
+                    /// 🔹 Minimum space + flexible gap before dots
+                    const SizedBox(height: 24),
+                    const Spacer(),
+                    /// 🔹 DOTS (minimum spacing above)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(
+                          OnboardingViewModel.pages.length,
+                          (index) {
+                            final isActive = index == viewModel.currentIndex;
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 4),
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 200),
+                                width: isActive
+                                    ? _dotActiveWidth
+                                    : _dotInactiveSize,
+                                height: isActive
+                                    ? _dotActiveHeight
+                                    : _dotInactiveSize,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(
+                                    isActive
+                                        ? _dotActiveRadius
+                                        : _dotInactiveSize / 2,
+                                  ),
+                                  color: isActive
+                                      ? AppColors.primary
+                                      : AppColors.inactiveDot,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 28),
+                    /// 🔹 SIGN UP
+                    PrimaryButton(
+                      label: 'Sign Up',
+                      onPressed: viewModel.onSignUpPressed,
+                    ),
+                    const SizedBox(height: 8),
+                    /// 🔹 LOGIN
+                    _HoverLoginButton(
+                      onPressed: viewModel.goToLogin,
+                    ),
+                    const SizedBox(height: 4),
+                  ],
+                ),
+              ),
             ),
-          ),
-
-          const SizedBox(height: 28),
-
-          /// 🔹 SIGN UP
-          PrimaryButton(
-            label: 'Sign Up',
-            onPressed: viewModel.onSignUpPressed,
-          ),
-
-          const SizedBox(height: 8),
-
-          /// 🔹 LOGIN
-          _HoverLoginButton(
-            onPressed: viewModel.goToLogin,
-          ),
-
-          const SizedBox(height: 4),
-        ],
+          );
+        },
       ),
     );
   }
