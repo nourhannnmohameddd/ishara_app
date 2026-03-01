@@ -16,9 +16,9 @@ class LoginViewModel extends BaseViewModel {
     notifyListeners();
     if (_emailError != null || _passwordError != null) return;
 
-    setBusy(true);
+    setState(ViewState.loading);
     // TODO: call auth repository, then navigate via AppRouter
-    setBusy(false);
+    setState(ViewState.idle);
     AppRouter.pushReplacementNamed(AppRoutes.onboarding);
   }
 
