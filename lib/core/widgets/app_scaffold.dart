@@ -31,7 +31,14 @@ class AppScaffold extends StatelessWidget {
       child: body ?? const SizedBox.shrink(),
     );
     return Scaffold(
-      appBar: appBar ?? (title != null ? AppBar(title: Text(title!)) : null),
+      backgroundColor: Colors.white,
+      appBar: appBar ??
+          (title != null
+              ? AppBar(
+                  title: Text(title!),
+                  backgroundColor: Colors.white,
+                )
+              : null),
       body: useSafeArea
           ? SafeArea(child: bodyContent)
           : bodyContent,

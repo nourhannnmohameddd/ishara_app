@@ -9,4 +9,6 @@ abstract class AppSpacing {
   static const double medium = 16.0; // 2 * base
   static const double large = 24.0; // 3 * base
   static const double xl = 32.0;    // 4 * base
+  static const double xxl = 40.0;  // 5 * base
+  static const double xxxl = 64.0; // 8 * base
 }

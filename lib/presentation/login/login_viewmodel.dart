@@ -4,20 +4,48 @@ import '../../core/utils/validators.dart';
 
 /// Login logic only. Validation and navigation here; never in View.
 class LoginViewModel extends BaseViewModel {
-  String? validateEmail(String? value) => Validators.email(value);
-  String? validatePassword(String? value) => Validators.password(value);
+  String? _emailError;
+  String? get emailError => _emailError;
 
-  void onLogin(String? email, String? password) {
-    clearError();
-    final emailError = Validators.email(email);
-    final passwordError = Validators.password(password);
-    if (emailError != null || passwordError != null) {
-      setError(emailError ?? passwordError);
-      return;
-    }
+  String? _passwordError;
+  String? get passwordError => _passwordError;
+
+  void onLoginPressed(String? email, String? password) {
+    _emailError = Validators.email(email);
+    _passwordError = Validators.password(password);
+    notifyListeners();
+    if (_emailError != null || _passwordError != null) return;
+
     setBusy(true);
     // TODO: call auth repository, then navigate via AppRouter
     setBusy(false);
     AppRouter.pushReplacementNamed(AppRoutes.onboarding);
+  }
+
+  void clearEmailError() {
+    if (_emailError == null) return;
+    _emailError = null;
+    notifyListeners();
+  }
+
+  void clearPasswordError() {
+    if (_passwordError == null) return;
+    _passwordError = null;
+    notifyListeners();
+  }
+
+  void onForgotPasswordPressed() {
+  AppRouter.pushNamed(AppRoutes.resetPassword);
+}
+  void onApplePressed() {
+    // TODO: sign in with Apple
+  }
+
+  void onGooglePressed() {
+    // TODO: sign in with Google
+  }
+
+  void onFacebookPressed() {
+    // TODO: sign in with Facebook
   }
 }
