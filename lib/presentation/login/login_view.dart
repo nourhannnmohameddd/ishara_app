@@ -59,19 +59,19 @@ class _LoginViewState extends State<LoginView> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            const SizedBox(height: 64),
+                            const SizedBox(height: AppSpacing.xxxl),
                             Text(
                               'Login',
                               textAlign: TextAlign.center,
                               style: AppTextStyles.headlineLarge.copyWith(color: AppColors.primary),
                             ),
-                            const SizedBox(height: 8),
+                            const SizedBox(height: AppSpacing.small),
                             Text(
                               'Enter your email and password',
                               textAlign: TextAlign.center,
                               style: AppTextStyles.bodyMedium.copyWith(color: AppColors.text),
                             ),
-                            const SizedBox(height: 40),
+                            const SizedBox(height: AppSpacing.xxl),
                             CustomTextField(
                               controller: _emailController,
                               label: 'Enter your email address',
@@ -79,7 +79,7 @@ class _LoginViewState extends State<LoginView> {
                               onChanged: (_) => widget.viewModel.clearEmailError(),
                               errorText: widget.viewModel.emailError,
                             ),
-                            const SizedBox(height: 16),
+                            const SizedBox(height: AppSpacing.medium),
                             CustomTextField(
                               controller: _passwordController,
                               label: 'Enter your password',
@@ -87,7 +87,7 @@ class _LoginViewState extends State<LoginView> {
                               onChanged: (_) => widget.viewModel.clearPasswordError(),
                               errorText: widget.viewModel.passwordError,
                             ),
-                            const SizedBox(height: 8),
+                            const SizedBox(height: AppSpacing.small),
                             Align(
                               alignment: Alignment.centerRight,
                               child: GestureDetector(
@@ -101,9 +101,9 @@ class _LoginViewState extends State<LoginView> {
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 40),
+                            const SizedBox(height: AppSpacing.xxl),
                             const SectionDivider(),
-                            const SizedBox(height: 20),
+                            const SizedBox(height: AppSpacing.large),
                             SocialAuthRow(
                               onApplePressed: () => widget.viewModel.onApplePressed(),
                               onGooglePressed: () => widget.viewModel.onGooglePressed(),
@@ -118,7 +118,7 @@ class _LoginViewState extends State<LoginView> {
                                 _passwordController.text,
                               ),
                             ),
-                            const SizedBox(height: 32),
+                            const SizedBox(height: AppSpacing.xl),
                           ],
                         ),
                       ),

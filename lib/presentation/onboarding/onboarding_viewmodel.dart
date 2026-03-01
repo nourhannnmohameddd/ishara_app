@@ -49,6 +49,14 @@ class OnboardingViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  void goToPage(int index) {
+    pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
   void nextPage() {
     if (_currentIndex >= pages.length - 1) return;
     _currentIndex++;
