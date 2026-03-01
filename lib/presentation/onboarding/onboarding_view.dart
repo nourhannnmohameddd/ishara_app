@@ -79,7 +79,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                     left: 0,
                     right: 0,
                     bottom: 0,
-                    //height: cardHeight,
+
                     child: _BottomCard(viewModel: widget.viewModel),
                   ),
                 ],
@@ -109,7 +109,8 @@ class _BottomCard extends StatelessWidget {
 
   static const double _cardTopRadius = 32;
   static const double _cardPaddingHorizontal = 24;
-  static const double _cardPaddingVertical = 32;
+  static const double _cardPaddingVertical = 28; // slightly refined
+
   static const double _dotActiveWidth = 24;
   static const double _dotActiveHeight = 6;
   static const double _dotActiveRadius = 3;
@@ -142,72 +143,131 @@ class _BottomCard extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Flexible(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    slide.title,
-                    textAlign: TextAlign.center,
-                    style: AppTextStyles.headlineLarge,
-                  ),
-                  const SizedBox(height: AppSpacing.small),
-                  Text(
-                    slide.description,
-                    textAlign: TextAlign.center,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                    style: AppTextStyles.bodyLarge,
-                  ),
-                ],
+
+          /// 🔹 TEXT AREA (natural height)
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                slide.title,
+                textAlign: TextAlign.center,
+                style: AppTextStyles.headlineLarge,
               ),
-            ),
+
+              const SizedBox(height: 16),
+
+              Text(
+                slide.description,
+                textAlign: TextAlign.center,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                style: AppTextStyles.bodyLarge,
+              ),
+            ],
           ),
+
+          /// 🔹 Pushes dots + buttons downward responsively
+          const Spacer(),
+
+          /// 🔹 DOTS
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(OnboardingViewModel.pages.length, (index) {
-              final isActive = index == viewModel.currentIndex;
-              return GestureDetector(
-                onTap: () => viewModel.setCurrentIndex(index),
-                behavior: HitTestBehavior.opaque,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.xs,
-                  ),
+            children: List.generate(
+              OnboardingViewModel.pages.length,
+              (index) {
+                final isActive = index == viewModel.currentIndex;
+
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 200),
-                    width: isActive ? _dotActiveWidth : _dotInactiveSize,
-                    height: isActive ? _dotActiveHeight : _dotInactiveSize,
+                    width:
+                        isActive ? _dotActiveWidth : _dotInactiveSize,
+                    height:
+                        isActive ? _dotActiveHeight : _dotInactiveSize,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(
-                        isActive ? _dotActiveRadius : _dotInactiveSize / 2,
+                        isActive
+                            ? _dotActiveRadius
+                            : _dotInactiveSize / 2,
                       ),
                       color: isActive
                           ? AppColors.primary
                           : AppColors.inactiveDot,
                     ),
                   ),
-                ),
-              );
-            }),
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: PrimaryButton(
-              label: 'Sign Up',
-              onPressed: viewModel.onSignUpPressed,
+                );
+              },
             ),
           ),
-          TextButton(
-            onPressed: viewModel.goToLogin,
-            child: const Text('Login'),
+
+          const SizedBox(height: 28),
+
+          /// 🔹 SIGN UP
+          PrimaryButton(
+            label: 'Sign Up',
+            onPressed: viewModel.onSignUpPressed,
           ),
+
+          const SizedBox(height: 8),
+
+          /// 🔹 LOGIN
+          _HoverLoginButton(
+            onPressed: viewModel.goToLogin,
+          ),
+
+          const SizedBox(height: 4),
         ],
+      ),
+    );
+  }
+}
+/// 🔹 Separate widget for hover behavior (View layer only)
+class _HoverLoginButton extends StatefulWidget {
+  const _HoverLoginButton({required this.onPressed});
+
+  final VoidCallback onPressed;
+
+  @override
+  State<_HoverLoginButton> createState() => _HoverLoginButtonState();
+}
+
+class _HoverLoginButtonState extends State<_HoverLoginButton> {
+  bool _isHovering = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _isHovering = true),
+      onExit: (_) => setState(() => _isHovering = false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 150),
+        decoration: BoxDecoration(
+          boxShadow: _isHovering
+              ? [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.12),
+                    blurRadius: 8,
+                    offset: const Offset(0, 4),
+                  )
+                ]
+              : [],
+        ),
+        child: TextButton(
+          style: TextButton.styleFrom(
+            padding: EdgeInsets.zero,
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          ),
+          onPressed: widget.onPressed,
+          child: Text(
+            'Login',
+            style: AppTextStyles.labelMedium.copyWith(
+              color: AppColors.primary,
+            ),
+          ),
+        ),
       ),
     );
   }

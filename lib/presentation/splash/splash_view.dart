@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/constants/app_spacing.dart';
-import '../../shared/widgets/widgets.dart';
+import '../../core/widgets/app_scaffold.dart';
 import 'splash_viewmodel.dart';
 
 /// Splash screen. UI only; no validation or navigation.

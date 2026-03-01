@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/constants/app_spacing.dart';
+import '../../core/widgets/app_scaffold.dart';
 import '../../shared/widgets/widgets.dart';
 import 'reset_password_viewmodel.dart';
 
