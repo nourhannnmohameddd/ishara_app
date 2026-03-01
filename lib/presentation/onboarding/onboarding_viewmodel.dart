@@ -2,32 +2,15 @@ import 'package:flutter/material.dart';
 
 import '../../core/base/base_viewmodel.dart';
 import '../../core/navigation/app_router.dart';
+import '../../data/datasources/local/onboarding_data.dart';
 import '../../data/models/onboarding_model.dart';
 
 /// Onboarding logic only. Navigation and state here; never in View.
 class OnboardingViewModel extends BaseViewModel {
   OnboardingViewModel() : pageController = PageController(initialPage: 0);
 
-  static const List<OnboardingModel> pages = [
-    OnboardingModel(
-      title: 'Welcome to Ishara',
-      description:
-          'Instantly translate Arabic Sign Language into clear speech so you can connect effortlessly with anyone around you',
-      imagePath: 'assets/images/onboarding1.jpg',
-    ),
-    OnboardingModel(
-      title: 'Speak Without Barriers',
-      description:
-          'Our AI-powered recognition makes your hand signs heard — in real-time, accurate, and natural conversations.',
-      imagePath: 'assets/images/onboarding2.jpg',
-    ),
-    OnboardingModel(
-      title: 'Smart, Fast and Inclusive',
-      description:
-          'Video call, chat and communicate confidently anywhere using automatic ArSL translation and voice output.',
-      imagePath: 'assets/images/onboarding3.jpg',
-    ),
-  ];
+  static final List<OnboardingModel> pages =
+      OnboardingLocalDataSource.getOnboardingPages();
 
   final PageController pageController;
 
