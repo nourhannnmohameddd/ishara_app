@@ -12,9 +12,9 @@ class ResetPasswordViewModel extends BaseViewModel {
     notifyListeners();
     if (_emailError != null) return;
     setState(ViewState.loading);
-    // TODO: call auth repository, then navigate via AppRouter
+    // TODO: call auth repository; then navigate to OTP screen or show success SnackBar
     setState(ViewState.idle);
-    AppRouter.pop();
+    AppRouter.pushReplacementNamed(AppRoutes.splash);
   }
 
   void clearEmailError() {

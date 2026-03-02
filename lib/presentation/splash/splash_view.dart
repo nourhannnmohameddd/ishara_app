@@ -40,7 +40,7 @@ class _SplashViewState extends State<SplashView> {
       builder: (context, _) {
         return AppScaffold(
           bodyPadding: EdgeInsets.zero,
-          useSafeArea: true,
+          useSafeArea: false,
           body: Container(
             color: AppColors.background,
             child: GestureDetector(

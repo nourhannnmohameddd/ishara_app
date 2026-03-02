@@ -41,12 +41,8 @@ class _OnboardingViewState extends State<OnboardingView> {
         return AppScaffold(
           useSafeArea: true,
           bodyPadding: EdgeInsets.zero,
-          body: Container(
-            color: Colors.white,
-            width: double.infinity,
-            height: double.infinity,
-            child: LayoutBuilder(
-              builder: (context, constraints) {
+          body: LayoutBuilder(
+            builder: (context, constraints) {
                 final contentWidth = _isWeb(context)
                     ? _maxContentWidth
                     : constraints.maxWidth;
@@ -93,11 +89,10 @@ class _OnboardingViewState extends State<OnboardingView> {
                   child: stack,
                 );
 
-                return _isWeb(context)
-                    ? Center(child: content)
-                    : content;
-              },
-            ),
+              return _isWeb(context)
+                  ? Center(child: content)
+                  : content;
+            },
           ),
         );
       },
@@ -218,7 +213,7 @@ class _BottomCard extends StatelessWidget {
                     /// 🔹 SIGN UP
                     PrimaryButton(
                       label: 'Sign Up',
-                      onPressed: viewModel.onSignUpPressed,
+                      onPressed: viewModel.mapsToSignUp,
                     ),
                     const SizedBox(height: AppSpacing.small),
                     /// 🔹 LOGIN

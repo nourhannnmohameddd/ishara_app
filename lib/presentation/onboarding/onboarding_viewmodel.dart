@@ -61,12 +61,8 @@ class OnboardingViewModel extends BaseViewModel {
     AppRouter.pushReplacementNamed(AppRoutes.splash);
   }
 
-  void onSignUpPressed() {
-    if (isLastPage) {
-      goToSplash();
-    } else {
-      nextPage();
-    }
+  void mapsToSignUp() {
+    AppRouter.pushNamed(AppRoutes.signUp);
   }
 
   @override

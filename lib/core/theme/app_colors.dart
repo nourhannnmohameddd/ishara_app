@@ -11,4 +11,6 @@ abstract class AppColors {
 
   /// For text and icons on primary-colored surfaces.
   static const Color onPrimary = Color(0xFFFFFFFF);
+
+  static const Color white = Color(0xFFFFFFFF);
 }

@@ -42,7 +42,7 @@ abstract class AppTheme {
     return ThemeData(
       useMaterial3: true,
       colorScheme: colorScheme,
-      scaffoldBackgroundColor: AppColors.background,
+      scaffoldBackgroundColor: AppColors.white,
       textTheme: textTheme,
       primaryTextTheme: textTheme,
       elevatedButtonTheme: ElevatedButtonThemeData(

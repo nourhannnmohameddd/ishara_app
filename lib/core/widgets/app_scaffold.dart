@@ -18,25 +18,26 @@ class AppScaffold extends StatelessWidget {
   final Widget? body;
   final PreferredSizeWidget? appBar;
   final Widget? floatingActionButton;
-  /// When null, uses [AppSpacing.medium] on all sides. Use [EdgeInsets.zero] for full-bleed (e.g. splash).
+  /// When null, uses [EdgeInsets.zero]. Screens pass explicit padding (e.g. horizontal [AppSpacing.medium]).
   final EdgeInsets? bodyPadding;
   /// When false, body is not wrapped in [SafeArea]. Use for full-screen layouts (e.g. splash).
   final bool useSafeArea;
 
   @override
   Widget build(BuildContext context) {
-    final padding = bodyPadding ?? const EdgeInsets.all(AppSpacing.medium);
+    final theme = Theme.of(context);
+    final padding = bodyPadding ?? EdgeInsets.zero;
     final bodyContent = Padding(
       padding: padding,
       child: body ?? const SizedBox.shrink(),
     );
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: appBar ??
           (title != null
               ? AppBar(
                   title: Text(title!),
-                  backgroundColor: Colors.white,
+                  backgroundColor: theme.scaffoldBackgroundColor,
                 )
               : null),
       body: useSafeArea

@@ -10,16 +10,16 @@ class LoginViewModel extends BaseViewModel {
   String? _passwordError;
   String? get passwordError => _passwordError;
 
-  void onLoginPressed(String? email, String? password) {
+  void login(String? email, String? password) {
     _emailError = Validators.email(email);
     _passwordError = Validators.password(password);
     notifyListeners();
     if (_emailError != null || _passwordError != null) return;
 
-    setState(ViewState.loading);
+    setBusy(true);
     // TODO: call auth repository, then navigate via AppRouter
-    setState(ViewState.idle);
-    AppRouter.pushReplacementNamed(AppRoutes.onboarding);
+    setBusy(false);
+    AppRouter.pushReplacementNamed(AppRoutes.dashboard);
   }
 
   void clearEmailError() {
@@ -34,18 +34,19 @@ class LoginViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void onForgotPasswordPressed() {
-  AppRouter.pushNamed(AppRoutes.resetPassword);
-}
-  void onApplePressed() {
+  void mapsToResetPassword() {
+    AppRouter.pushNamed(AppRoutes.resetPassword);
+  }
+
+  void signInWithApple() {
     // TODO: sign in with Apple
   }
 
-  void onGooglePressed() {
+  void signInWithGoogle() {
     // TODO: sign in with Google
   }
 
-  void onFacebookPressed() {
+  void signInWithFacebook() {
     // TODO: sign in with Facebook
   }
 }

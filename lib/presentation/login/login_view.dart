@@ -44,21 +44,18 @@ class _LoginViewState extends State<LoginView> {
       builder: (context, _) {
         return AppScaffold(
           title: null,
-          body: Container(
-            color: Colors.white,
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                return SingleChildScrollView(
+          bodyPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.medium),
+          body: LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
                       minHeight: constraints.maxHeight,
                     ),
                     child: IntrinsicHeight(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.medium),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
                             const SizedBox(height: AppSpacing.xxxl),
                             Text(
                               'Login',
@@ -91,7 +88,7 @@ class _LoginViewState extends State<LoginView> {
                             Align(
                               alignment: Alignment.centerRight,
                               child: GestureDetector(
-                                onTap: () => widget.viewModel.onForgotPasswordPressed(),
+                                onTap: () => widget.viewModel.mapsToResetPassword(),
                                 child: Text(
                                   'Forget password?',
                                   style: AppTextStyles.bodySmall.copyWith(
@@ -105,15 +102,15 @@ class _LoginViewState extends State<LoginView> {
                             const SectionDivider(),
                             const SizedBox(height: AppSpacing.large),
                             SocialAuthRow(
-                              onApplePressed: () => widget.viewModel.onApplePressed(),
-                              onGooglePressed: () => widget.viewModel.onGooglePressed(),
-                              onFacebookPressed: () => widget.viewModel.onFacebookPressed(),
+                            onApplePressed: () => widget.viewModel.signInWithApple(),
+                            onGooglePressed: () => widget.viewModel.signInWithGoogle(),
+                            onFacebookPressed: () => widget.viewModel.signInWithFacebook(),
                             ),
                             const Spacer(),
                             PrimaryButton(
                               label: 'Continue',
                               isLoading: widget.viewModel.isBusy,
-                              onPressed: () => widget.viewModel.onLoginPressed(
+                              onPressed: () => widget.viewModel.login(
                                 _emailController.text,
                                 _passwordController.text,
                               ),
@@ -121,12 +118,10 @@ class _LoginViewState extends State<LoginView> {
                             const SizedBox(height: AppSpacing.xl),
                           ],
                         ),
-                      ),
                     ),
                   ),
                 );
-              },
-            ),
+            },
           ),
         );
       },

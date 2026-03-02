@@ -38,25 +38,19 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
       builder: (context, _) {
         return AppScaffold(
           title: null,
-          bodyPadding: EdgeInsets.zero,
+          bodyPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.medium),
           useSafeArea: true,
-          body: Container(
-            color: Colors.white,
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                return SingleChildScrollView(
+          body: LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
                       minHeight: constraints.maxHeight,
                     ),
                     child: IntrinsicHeight(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: AppSpacing.medium,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
 
                             /// 🔹 Top spacing
                             const SizedBox(height: AppSpacing.large),
@@ -137,12 +131,10 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                             const SizedBox(height: AppSpacing.xl),
                           ],
                         ),
-                      ),
                     ),
                   ),
                 );
-              },
-            ),
+            },
           ),
         );
       },

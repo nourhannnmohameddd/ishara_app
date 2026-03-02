@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
+import '../../core/widgets/app_scaffold.dart';
 import '../../presentation/login/login_view.dart';
 import '../../presentation/login/login_viewmodel.dart';
 import '../../presentation/onboarding/onboarding_view.dart';
 import '../../presentation/onboarding/onboarding_viewmodel.dart';
 import '../../presentation/reset_password/reset_password_view.dart';
 import '../../presentation/reset_password/reset_password_viewmodel.dart';
+import '../../presentation/signup/signup_view.dart';
+import '../../presentation/signup/signup_viewmodel.dart';
 import '../../presentation/splash/splash_view.dart';
 import '../../presentation/splash/splash_viewmodel.dart';
 import 'route_constants.dart';
@@ -17,6 +20,8 @@ abstract class AppRoutes {
   static const String onboarding = RouteConstants.onboarding;
   static const String login = RouteConstants.login;
   static const String resetPassword = RouteConstants.resetPassword;
+  static const String signUp = RouteConstants.signUp;
+  static const String dashboard = RouteConstants.dashboard;
 }
 
 /// Central navigation. ViewModels use this; Views must not navigate.
@@ -54,6 +59,17 @@ class AppRouter {
         return _materialRoute(settings, LoginView(viewModel: LoginViewModel()));
       case RouteConstants.resetPassword:
         return _materialRoute(settings, ResetPasswordView(viewModel: ResetPasswordViewModel()));
+      case RouteConstants.signUp:
+        return _materialRoute(settings, SignUpView(viewModel: SignUpViewModel()));
+      case RouteConstants.dashboard:
+        return _materialRoute(
+          settings,
+          Scaffold(
+            body: Center(
+              child: Text('Dashboard Screen'),
+            ),
+          ),
+        );
       default:
         return null;
     }
