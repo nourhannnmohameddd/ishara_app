@@ -65,16 +65,32 @@ class AppRouter {
       case RouteConstants.dashboard:
         return _materialRoute(
           settings,
-          Scaffold(
-            body: Center(
-              child: Text('Dashboard Screen'),
-            ),
+          Builder(
+            builder: (context) {
+              final theme = Theme.of(context);
+              return AppScaffold(
+                title: 'Dashboard',
+                leading: IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  color: theme.appBarTheme.foregroundColor ??
+                      theme.colorScheme.onSurface,
+                  onPressed: () => AppRouter.pushNamedAndRemoveUntil(
+                    AppRoutes.login,
+                    (route) => false,
+                  ),
+                ),
+                body: Center(
+                  child: Text('Dashboard Screen'),
+                ),
+              );
+            },
           ),
         );
       case RouteConstants.otp:
         return _materialRoute(
           settings,
-          Scaffold(
+          AppScaffold(
+            title: 'OTP Verification',
             body: Center(
               child: Text('OTP Screen Placeholder'),
             ),

@@ -9,6 +9,7 @@ class AppScaffold extends StatelessWidget {
     this.title,
     this.body,
     this.appBar,
+    this.leading,
     this.floatingActionButton,
     this.bodyPadding,
     this.useSafeArea = true,
@@ -17,6 +18,9 @@ class AppScaffold extends StatelessWidget {
   final String? title;
   final Widget? body;
   final PreferredSizeWidget? appBar;
+  /// When null and an app bar is shown, a back button is shown if [Navigator.canPop].
+  /// Provide a widget (e.g. IconButton) to override the default leading.
+  final Widget? leading;
   final Widget? floatingActionButton;
   /// When null, uses [EdgeInsets.zero]. Screens pass explicit padding (e.g. horizontal [AppSpacing.medium]).
   final EdgeInsets? bodyPadding;
@@ -31,6 +35,8 @@ class AppScaffold extends StatelessWidget {
       padding: padding,
       child: body ?? const SizedBox.shrink(),
     );
+    final canPop = Navigator.of(context).canPop();
+    final defaultLeading = leading ?? (canPop ? BackButton() : null);
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       appBar: appBar ??
@@ -38,6 +44,7 @@ class AppScaffold extends StatelessWidget {
               ? AppBar(
                   title: Text(title!),
                   backgroundColor: theme.scaffoldBackgroundColor,
+                  leading: defaultLeading,
                 )
               : null),
       body: useSafeArea
