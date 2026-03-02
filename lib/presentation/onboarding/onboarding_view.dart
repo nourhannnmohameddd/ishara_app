@@ -24,10 +24,33 @@ class _OnboardingViewState extends State<OnboardingView> {
   static const double _cardOverlapOffset = AppSpacing.large;
   static const double _webBreakpoint = 600;
 
+  late final PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: 0);
+    widget.viewModel.addListener(_syncPageToViewModel);
+  }
+
   @override
   void dispose() {
+    widget.viewModel.removeListener(_syncPageToViewModel);
+    _pageController.dispose();
     widget.viewModel.dispose();
     super.dispose();
+  }
+
+  void _syncPageToViewModel() {
+    if (!_pageController.hasClients) return;
+    final currentPage = _pageController.page?.round() ?? 0;
+    if (widget.viewModel.currentIndex != currentPage) {
+      _pageController.animateToPage(
+        widget.viewModel.currentIndex,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 
   bool _isWeb(BuildContext context) =>
@@ -58,7 +81,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                       right: 0,
                       height: imageHeight,
                       child: PageView.builder(
-                        controller: widget.viewModel.pageController,
+                        controller: _pageController,
                         itemCount: OnboardingViewModel.pages.length,
                         onPageChanged: widget.viewModel.setCurrentIndex,
                         itemBuilder: (context, index) {

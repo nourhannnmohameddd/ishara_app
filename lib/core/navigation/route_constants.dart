@@ -8,4 +8,5 @@ abstract class RouteConstants {
   static const String resetPassword = '/reset-password';
   static const String signUp = '/signup';
   static const String dashboard = '/dashboard';
+  static const String otp = '/otp';
 }

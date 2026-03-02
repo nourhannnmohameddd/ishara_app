@@ -22,6 +22,7 @@ abstract class AppRoutes {
   static const String resetPassword = RouteConstants.resetPassword;
   static const String signUp = RouteConstants.signUp;
   static const String dashboard = RouteConstants.dashboard;
+  static const String otp = RouteConstants.otp;
 }
 
 /// Central navigation. ViewModels use this; Views must not navigate.
@@ -67,6 +68,15 @@ class AppRouter {
           Scaffold(
             body: Center(
               child: Text('Dashboard Screen'),
+            ),
+          ),
+        );
+      case RouteConstants.otp:
+        return _materialRoute(
+          settings,
+          Scaffold(
+            body: Center(
+              child: Text('OTP Screen Placeholder'),
             ),
           ),
         );
