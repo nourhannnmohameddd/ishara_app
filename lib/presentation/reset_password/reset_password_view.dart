@@ -48,9 +48,12 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                       minHeight: constraints.maxHeight,
                     ),
                     child: IntrinsicHeight(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
+                      child: Center(
+                        child: ConstrainedBox(
+                          constraints: const BoxConstraints(maxWidth: 480),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
 
                             /// 🔹 Top spacing
                             const SizedBox(height: AppSpacing.large),
@@ -130,6 +133,8 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
 
                             const SizedBox(height: AppSpacing.xl),
                           ],
+                            ),
+                          ),
                         ),
                     ),
                   ),

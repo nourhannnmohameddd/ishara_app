@@ -53,9 +53,12 @@ class _LoginViewState extends State<LoginView> {
                       minHeight: constraints.maxHeight,
                     ),
                     child: IntrinsicHeight(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
+                      child: Center(
+                        child: ConstrainedBox(
+                          constraints: const BoxConstraints(maxWidth: 480),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
                             const SizedBox(height: AppSpacing.xxxl),
                             Text(
                               'Login',
@@ -117,6 +120,8 @@ class _LoginViewState extends State<LoginView> {
                             ),
                             const SizedBox(height: AppSpacing.xl),
                           ],
+                            ),
+                          ),
                         ),
                     ),
                   ),
