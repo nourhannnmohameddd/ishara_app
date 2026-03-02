@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../core/widgets/app_scaffold.dart';
+import '../../presentation/dashboard/dashboard_view.dart';
+import '../../presentation/dashboard/dashboard_viewmodel.dart';
 import '../../presentation/login/login_view.dart';
 import '../../presentation/login/login_viewmodel.dart';
 import '../../presentation/onboarding/onboarding_view.dart';
 import '../../presentation/onboarding/onboarding_viewmodel.dart';
+import '../../presentation/otp/otp_view.dart';
+import '../../presentation/otp/otp_viewmodel.dart';
 import '../../presentation/reset_password/reset_password_view.dart';
 import '../../presentation/reset_password/reset_password_viewmodel.dart';
 import '../../presentation/signup/signup_view.dart';
@@ -63,39 +66,9 @@ class AppRouter {
       case RouteConstants.signUp:
         return _materialRoute(settings, SignUpView(viewModel: SignUpViewModel()));
       case RouteConstants.dashboard:
-        return _materialRoute(
-          settings,
-          Builder(
-            builder: (context) {
-              final theme = Theme.of(context);
-              return AppScaffold(
-                title: 'Dashboard',
-                leading: IconButton(
-                  icon: const Icon(Icons.arrow_back),
-                  color: theme.appBarTheme.foregroundColor ??
-                      theme.colorScheme.onSurface,
-                  onPressed: () => AppRouter.pushNamedAndRemoveUntil(
-                    AppRoutes.login,
-                    (route) => false,
-                  ),
-                ),
-                body: Center(
-                  child: Text('Dashboard Screen'),
-                ),
-              );
-            },
-          ),
-        );
+        return _materialRoute(settings, DashboardView(viewModel: DashboardViewModel()));
       case RouteConstants.otp:
-        return _materialRoute(
-          settings,
-          AppScaffold(
-            title: 'OTP Verification',
-            body: Center(
-              child: Text('OTP Screen Placeholder'),
-            ),
-          ),
-        );
+        return _materialRoute(settings, OtpView(viewModel: OtpViewModel()));
       default:
         return null;
     }
